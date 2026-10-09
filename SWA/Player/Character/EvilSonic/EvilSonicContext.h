@@ -8,6 +8,16 @@ namespace SWA::Player
     class CEvilSonicContext // : public CPlayerContext
     {
     public:
+        // Unlike the day context (CSonicContext::GetInstance), the werehog's isn't
+        // published to a game global. Null whenever the werehog is not loaded.
+        static inline std::atomic<uint32_t> s_instance;
+
+        static CEvilSonicContext* GetInstance()
+        {
+            const uint32_t instance = s_instance.load(std::memory_order_relaxed);
+            return instance != 0 ? (CEvilSonicContext*)MmGetHostAddress(instance) : nullptr;
+        }
+
         SWA_INSERT_PADDING(0x688);
         be<float> m_DarkGaiaEnergy;
         SWA_INSERT_PADDING(0x138);
