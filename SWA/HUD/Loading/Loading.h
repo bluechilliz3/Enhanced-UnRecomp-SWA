@@ -28,7 +28,9 @@ namespace SWA
         be<uint32_t> m_IsVisible;
         SWA_INSERT_PADDING(0x0C);
         be<ELoadingDisplayType> m_LoadingDisplayType;
-        SWA_INSERT_PADDING(0x61);
+        SWA_INSERT_PADDING(0x0C);
+        bool m_IsScreenVisible;  // false for an eLoadingDisplayType_None request
+        SWA_INSERT_PADDING(0x54);
         bool m_IsNightToDay;
     };
 
